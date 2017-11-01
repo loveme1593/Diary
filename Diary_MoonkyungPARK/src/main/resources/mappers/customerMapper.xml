@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="moonkyung.park.board.dao.CustomerDAO">
+	<insert id="insertCustomer">
+		insert into
+		board_customer(cus_id,cus_pw,cus_gender,cus_nickname,cus_question,cus_answer,cus_hobbies)
+		values(
+		#{cus_id},#{cus_pw},#{cus_gender},#{cus_nickname},#{cus_question},#{cus_answer},#{cus_hobbies}
+		)
+	</insert>
+
+	<select id="selectCustomer" resultType="Customer">
+		select * from
+		board_customer where cus_id=#{cus_id}
+	</select>
+
+	<select id="selectNickname" resultType="string">
+		select cus_nickname from
+		board_customer where cus_id=#{cus_id}
+	</select>
+
+	<select id="findPassword" parameterType="Customer" resultType="String">
+		select cus_pw from board_customer where cus_id=#{cus_id} and
+		cus_question=#{cus_question}
+		and cus_answer=#{cus_answer}
+	</select>
+</mapper>

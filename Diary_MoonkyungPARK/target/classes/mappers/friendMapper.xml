@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="moonkyung.park.board.dao.FriendDAO">
+	<insert id="addInformation" parameterType="Customer">
+		insert into
+		board_friend(cus_id,cus_gender,cus_nickname,cus_hobbies,cus_status)values(
+		#{cus_id},#{cus_gender},#{cus_nickname},#{cus_hobbies},'info'
+		)
+	</insert>
+	<select id="numofFriendRequest" parameterType="String" resultType="_int">
+	select count(*) from board_friend where cus_id=#{cus_id} and cus_status='receive'
+	</select>
+	<select id="findFriends" parameterType="Map" resultType="Customer">
+		select *
+		from
+		board_friend
+		<choose>
+			<when test="searchType=='cus_id'">
+				where cus_id like
+				CONCAT('%',#{searchContent},'%')
+			</when>
+			<when test="searchType=='cus_nickname'">
+				where cus_nickname like
+				CONCAT('%',#{searchContent},'%')
+			</when>
+			<when test="searchType=='cus_hobbies'">
+				where cus_hobbies like
+				CONCAT('%',#{searchContent},'%')
+			</when>
+		</choose>
+	</select>
+	<insert id="friendRequest" parameterType="Map">
+		insert into
+		board_friend(cus_id,friend_id,cus_status)values(
+		#{cus_id},#{friend_id},"request"
+		)
+	</insert>
+	<insert id="friendRequestFriend" parameterType="Map">
+		insert into
+		board_friend(cus_id,friend_id,cus_status)values(
+		#{friend_id},#{cus_id},"receive"
+		)
+	</insert>
+	<select id="getStatus" parameterType="Map" resultType="String">
+		select
+		cus_status from board_friend where cus_id=#{cus_id} and
+		friend_id=#{friend_id}
+	</select>
+	<select id="getList" resultType="String">
+		select friend_id from
+		board_friend where
+		cus_id=#{cus_id} and cus_status="friend"
+	</select>
+
+	<select id="getRequestList" resultType="String">
+		select friend_id from
+		board_friend where
+		cus_id=#{cus_id} and cus_status="receive"
+	</select>
+	<update id="accept" parameterType="Map">
+		update board_friend set
+		cus_status="friend" where cus_id=#{cus_id} and
+		friend_id=#{friend_id}
+	</update>
+	<update id="acceptFriend" parameterType="Map">
+		update board_friend set
+		cus_status="friend" where cus_id=#{friend_id} and
+		friend_id=#{cus_id}
+	</update>
+	<delete id="remove" parameterType="Map">
+		delete from board_friend where cus_id=#{cus_id} and friend_id=#{friend_id}
+	</delete>
+	<delete id="removeFriend" parameterType="Map">
+		delete from board_friend where cus_id=#{friend_id} and friend_id=#{cus_id}
+	</delete>
+</mapper>
