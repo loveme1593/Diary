@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="sendMessage" parameterType="Message">
 		insert into board_message
 		(cus_id,friend_id,message_title,message,cus_status,friend_status)
-		value(#{cus_id},#{friend_id},#{message_title},#{message},'send','receive')
+		value(#{cus_id},#{friend_id},#{message_title},#{message},'sent','receive')
 	</insert>
 	<select id="getMessage" parameterType="Map" resultType="Message">
 		select* from board_message
