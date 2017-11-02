@@ -44,17 +44,19 @@
 						"board_num":${board.board_num},
 						"board_title" :  $("#board_title").val(),
 						"board_content" : $("#board_content").val(),
-						"board_see" : $("input[type=radio][name=board_see]:checked").val()
+						"board_see" : $("input[type=radio][name=board_see]:checked").val(),
+						"page":${page},
+						"friend_id":${friend_id}
 					},
 					success : function(board_num) {
 							alert('Your post is updated successfully');
-							location.href = "${pageContext.request.contextPath}/boards/get?board_num="+board_num;
+							location.href = "${pageContext.request.contextPath}/boards/get?board_num="+board_num+"&page=${page}&friend_id=${friend_id}";
 					}
 				});
 	}
 </script>
 <body>
-<!-- Navigation -->
+	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
 		id="mainNav">
 		<div class="container">
@@ -80,16 +82,17 @@
 							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
 						</li> -->
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">${loginid} <span class="caret"></span></a>
+							data-toggle="dropdown" href="#">${loginid} <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class="nav-item" style="padding-right:.5rem; padding-left:.5rem;">
-							Logged-in as <br>
-							<strong class="css-truncate-target">${loginid }</strong>
-							</li>
-							 <li class="dropdown-divider"></li>
+								<li class="nav-item"
+									style="padding-right: .5rem; padding-left: .5rem;">
+									Logged-in as <br> <strong class="css-truncate-target">${loginid }</strong>
+								</li>
+								<li class="dropdown-divider"></li>
 								<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
-						</li>
+									href="${pageContext.request.contextPath}/customer/logout">Logout</a>
+								</li>
 							</ul></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
@@ -144,7 +147,7 @@
 				<div class="post-preview">
 					<h2>Update diary</h2>
 					<hr>
-					<table class="table table-hover">
+					<table class="table">
 						<tr>
 							<td>Title</td>
 							<td><input type="text" id="board_title" name="board_title"
@@ -152,10 +155,10 @@
 						</tr>
 						<tr>
 							<td>Privacy bounds</td>
-							<td><input type="radio" id="all" name="board_see" value="all">all<br>
-								<input type="radio" id="friend" name="board_see" value="friend">to
-								only friends<br> <input type="radio" id="secret" name="board_see"
-								value="secret">private<br></td>
+							<td><input type="radio" id="all" name="board_see"
+								value="all">all<br> <input type="radio" id="friend"
+								name="board_see" value="friend">to only friends<br>
+								<input type="radio" id="secret" name="board_see" value="secret">private<br></td>
 						</tr>
 						<tr>
 							<td>Content</td>

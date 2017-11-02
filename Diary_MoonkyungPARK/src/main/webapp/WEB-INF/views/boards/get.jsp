@@ -70,7 +70,7 @@ function deleteBoard(){
 			});}
 }
 function updateBoard(board_num){
-	location.href = "${pageContext.request.contextPath}/boards/update?board_num="+board_num;
+	location.href = "${pageContext.request.contextPath}/boards/update?board_num="+board_num+"&page=${page}&friend_id=${friend_id}";
 }
 function insertReply(){
 	$.ajax({
@@ -148,16 +148,17 @@ function insertR_reply(reply_num){
 							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
 						</li> -->
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">${loginid} <span class="caret"></span></a>
+							data-toggle="dropdown" href="#">${loginid} <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class="nav-item" style="padding-right:.5rem; padding-left:.5rem;">
-							Logged-in as <br>
-							<strong class="css-truncate-target">${loginid }</strong>
-							</li>
-							 <li class="dropdown-divider"></li>
+								<li class="nav-item"
+									style="padding-right: .5rem; padding-left: .5rem;">
+									Logged-in as <br> <strong class="css-truncate-target">${loginid }</strong>
+								</li>
+								<li class="dropdown-divider"></li>
 								<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
-						</li>
+									href="${pageContext.request.contextPath}/customer/logout">Logout</a>
+								</li>
 							</ul></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>

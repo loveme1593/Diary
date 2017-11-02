@@ -50,11 +50,10 @@ public class BoardController {
 			@RequestParam(value = "friend_id", defaultValue = "") String friend_id) {
 		logger.info("게시판 홈");
 		String cus_id = (String) session.getAttribute("loginid");
-		if (friend_id.equals("")||friend_id.equals(cus_id)) {
+		if (friend_id.equals("") || friend_id.equals(cus_id)) {
 			friend_id = cus_id;
 			session.setAttribute("status", "myself");
-		} 
-		else{
+		} else {
 			String status = fRepository.getStatus(cus_id, friend_id);
 			if (status == null || !status.equals("friend")) {
 				session.setAttribute("status", "notYet");
@@ -173,9 +172,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public String updateBoard(int board_num, Model model) {
+	public String updateBoard(int board_num, Model model, int page, String friend_id) {
 		Board board = bRepository.getBoard(board_num);
 		String loginid = (String) session.getAttribute("loginid");
+		model.addAttribute("page", page);
+		model.addAttribute("friend_id", friend_id);
 		if (board.getBoard_id().equals(loginid)) {
 			// 글쓴=로그인한사람 같을 때만 업뎃 가능하도록
 			model.addAttribute("board", board);
@@ -185,9 +186,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody int updateBoard(int board_num, Board board) {
+	public @ResponseBody int updateBoard(int board_num, Board board, int page, String friend_id, Model model) {
 		int result = bRepository.updateBoard(board);
 		logger.info("글 수정 결과: " + board.toString());
+		model.addAttribute("page", page);
+		model.addAttribute("friend_id", friend_id);
 		return board_num;
 	}
 }
