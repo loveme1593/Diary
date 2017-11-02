@@ -131,7 +131,7 @@
 				<div class="post-preview">
 					<h2>Write diary</h2>
 					<hr>
-					<table class="table table-hover" cellpadding="10">
+					<table class="table" cellpadding="10">
 						<tr>
 							<td>Title</td>
 							<td><input type="text" id="board_title" name="board_title">

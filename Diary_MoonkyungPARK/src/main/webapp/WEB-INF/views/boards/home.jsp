@@ -36,6 +36,11 @@
 		location.href = "${pageContext.request.contextPath}/boards/insert";
 	}
 </script>
+<style>
+.centeralize {
+	text-align: center;
+}
+</style>
 <body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
@@ -115,7 +120,7 @@
 				<div class="post-preview">
 					<h2>${friend_id }'sdiary</h2>
 					<hr>
-					<table class="table table-hover" cellpadding="10">
+					<table class="table" cellpadding="10">
 						<tr>
 							<td>Title</td>
 							<td>Write</td>
@@ -142,16 +147,17 @@
 						<input type="button" value="write" id="write"
 							class="btn btn-default">
 					</c:if>
-					<input type="button" value="home"
-						onclick="location.href='${pageContext.request.contextPath}/'"
-						class="btn btn-default"> <br> <a
-						href="${pageContext.request.contextPath}/boards?page=${page-1}&friend_id=${friend_id}">&laquo;</a>
-					<c:forEach var="page" begin="${page }" end="${endPage }">
+					<br>
+					<div class="centeralize">
 						<a
-							href="${pageContext.request.contextPath}/boards?page=${page}&friend_id=${friend_id}">${page}</a>
-					</c:forEach>
-					<a
-						href="${pageContext.request.contextPath}/boards?page=${page+1}&friend_id=${friend_id}">&raquo;</a>
+							href="${pageContext.request.contextPath}/boards?page=${page-1}&friend_id=${friend_id}">&laquo;</a>
+						<c:forEach var="page" begin="${page }" end="${endPage }">
+							<a
+								href="${pageContext.request.contextPath}/boards?page=${page}&friend_id=${friend_id}">${page}</a>
+						</c:forEach>
+						<a
+							href="${pageContext.request.contextPath}/boards?page=${page+1}&friend_id=${friend_id}">&raquo;</a>
+					</div>
 				</div>
 			</div>
 		</div>

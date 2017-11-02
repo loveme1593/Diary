@@ -50,15 +50,15 @@ public class BoardController {
 			@RequestParam(value = "friend_id", defaultValue = "") String friend_id) {
 		logger.info("게시판 홈");
 		String cus_id = (String) session.getAttribute("loginid");
-		if (friend_id.equals("")) {
+		if (friend_id.equals("")||friend_id.equals(cus_id)) {
 			friend_id = cus_id;
 			session.setAttribute("status", "myself");
-		} else {
+		} 
+		else{
 			String status = fRepository.getStatus(cus_id, friend_id);
-			if(status==null||!status.equals("friend")) {
+			if (status == null || !status.equals("friend")) {
 				session.setAttribute("status", "notYet");
-			}
-			else if (status.equals("friend")) {
+			} else if (status.equals("friend")) {
 				session.setAttribute("status", "friend");
 			}
 		}
@@ -67,7 +67,8 @@ public class BoardController {
 		page = pagination.getCurrentPage(page, totalPages);
 		boards = pagination.totalPosts(boards, page);
 		int endPage = pagination.endPage(page, totalPages);
-		logger.info("총 페이지: " + totalPages + ", 끝페이지: " + endPage);
+		logger.info("총 페이지: " + totalPages + ", 끝페이지: " + endPage + " 현재 페이지: " + page + " 게시물 수: " + boards.size()
+				+ " status: " + (String) session.getAttribute("status"));
 		model.addAttribute("boards", boards);
 		model.addAttribute("page", page);
 		model.addAttribute("endPage", endPage);
@@ -101,8 +102,8 @@ public class BoardController {
 			board = bRepository.getBoard(board_num);
 		}
 		model.addAttribute("board", board);
-		logger.info("글읽기"+board);
-  
+		logger.info("글읽기" + board);
+
 		// 리플라이 부분
 		ArrayList<Reply> reply = rRepository.getReplies(board_num);
 		model.addAttribute("reply", reply);

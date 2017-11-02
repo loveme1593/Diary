@@ -28,7 +28,7 @@ public class CustomerController {
 
 	@Inject
 	FriendRepository fRepository;
-	
+
 	@Inject
 	MessageRepository mRepository;
 
@@ -49,27 +49,22 @@ public class CustomerController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(Model model, Customer customer) {
 		Customer cusCompare = cRepository.selectCustomer(customer.getCus_id());
-		if (cusCompare == null) {
-			model.addAttribute("loginResult", "없는 아이디입니다. 회원 가입 후 이용해주세요.");
-			return "home";
-		}
-		if (cusCompare.getCus_pw().equals(customer.getCus_pw())) {
+		if (cusCompare == null || !cusCompare.getCus_pw().equals(customer.getCus_pw())) {
+			model.addAttribute("loginResult", "Incorrect username or password");
+			return "customer/login";
+		} else {
 			logger.info("로그인 성공");
-			model.addAttribute("loginResult", "로그인에 성공하였습니다.");
+			model.addAttribute("loginResult", "Login succeeded");
 			session.setAttribute("loginid", cusCompare.getCus_id());
 			session.setAttribute("loginNickname", cusCompare.getCus_nickname());
-			//새 메세지, 친구 요청 수 세기 위한 세션
-			int numofFriendRequest=fRepository.numofFriendRequest(customer.getCus_id());
+			// 새 메세지, 친구 요청 수 세기 위한 세션
+			int numofFriendRequest = fRepository.numofFriendRequest(customer.getCus_id());
 			session.setAttribute("numofFriendRequest", numofFriendRequest);
-			int numofReadMessage=mRepository.numofMessage(customer.getCus_id(), "read");
+			int numofReadMessage = mRepository.numofMessage(customer.getCus_id(), "read");
 			session.setAttribute("numofReadMessage", numofReadMessage);
-			int numofSentMessage=mRepository.numofMessage(customer.getCus_id(), "sent");
+			int numofSentMessage = mRepository.numofMessage(customer.getCus_id(), "sent");
 			session.setAttribute("numofSentMessage", numofSentMessage);
 			return "home";
-		} else {
-			logger.info("로그인 실패");
-			model.addAttribute("loginResult", "로그인에 실패하였습니다.");
-			return "customer/login";
 		}
 	}
 
@@ -85,7 +80,7 @@ public class CustomerController {
 	public String logout(Model model) {
 		session.invalidate();
 		logger.info("로그아웃");
-		model.addAttribute("loginResult", "로그아웃 되었습니다.");
+		model.addAttribute("loginResult", "Logout succeeded");
 		return "home";
 	}
 
