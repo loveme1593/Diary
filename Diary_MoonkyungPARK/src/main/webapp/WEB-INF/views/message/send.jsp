@@ -35,7 +35,7 @@
 	}
 </script>
 <body>
-	<table class="table table-hover">
+	<table class="table">
 		<tr>
 			<td>To</td>
 			<td>${cus_id }</td>

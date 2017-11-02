@@ -63,7 +63,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				where friend_id=#{cus_id} and friend_status='receive'
 			</when>
 			<when test="category=='sent'">
-				where cus_id=#{cus_id} and cus_status='send'
+				where cus_id=#{cus_id} and cus_status='sent'
 			</when>
 		</choose>
 	</select>
