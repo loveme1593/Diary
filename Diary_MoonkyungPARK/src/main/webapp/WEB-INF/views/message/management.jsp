@@ -153,10 +153,11 @@
 								test="${category=='read'&&item.friend_status!='delete'||category=='sent'&&item.cus_status!='delete' }">
 								<tr>
 									<td><a
-										href="${pageContext.request.contextPath}/message/get?message_num=${item.message_num}&category=${category}&page=${page}">${item.message_title }<c:if
-												test="${item.friend_status=='receive'||item.cus_status=='sent' }">
+										href="${pageContext.request.contextPath}/message/get?message_num=${item.message_num}&category=${category}&page=${page}">${item.message_title }
+											<c:if test="${item.friend_status=='receive'&&category=='read'||item.cus_status=='sent'&&category=='sent'}">
 												<span class="w3-badge w3-red">New</span>
-											</c:if></a></td>
+											</c:if>
+									</a></td>
 									<c:if test="${category=='read' }">
 										<td>${item.cus_id }</td>
 									</c:if>
