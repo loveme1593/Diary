@@ -132,8 +132,14 @@
 								test="${status=='myself'||item.board_see=='all'||item.board_see=='friend'&&status=='friend' }">
 								<tr>
 									<td><a
-										href="${pageContext.request.contextPath}/boards/get?board_num=${item.board_num}">${item.board_title }
-											(${item.board_replies }) </a></td>
+										href="${pageContext.request.contextPath}/boards/get?board_num=${item.board_num}&page=${page}&friend_id=${friend_id}">${item.board_title }
+											(${item.board_replies }) </a> <c:if test="${item.board_see=='all' }">
+											<span class="badge badge-info">All</span>
+										</c:if> <c:if test="${item.board_see=='friend' }">
+											<span class="badge badge-light">Friend</span>
+										</c:if> <c:if test="${item.board_see=='secret' }">
+											<span class="badge badge-dark">Secret</span>
+										</c:if></td>
 									<td>${item.board_id }</td>
 									<td>${item.board_date }</td>
 									<td>${item.board_hits }</td>

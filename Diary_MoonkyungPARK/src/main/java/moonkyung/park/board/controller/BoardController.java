@@ -93,7 +93,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
-	public String getBoard(int board_num, Model model) {
+	public String getBoard(int board_num, Model model, int page, String friend_id) {
 		String loginid = (String) session.getAttribute("loginid");
 		Board board = bRepository.getBoard(board_num);
 		if (!loginid.equals(board.getBoard_id())) {
@@ -102,6 +102,8 @@ public class BoardController {
 			board = bRepository.getBoard(board_num);
 		}
 		model.addAttribute("board", board);
+		model.addAttribute("page", page);
+		model.addAttribute("friend_id", friend_id);
 		logger.info("글읽기" + board);
 
 		// 리플라이 부분

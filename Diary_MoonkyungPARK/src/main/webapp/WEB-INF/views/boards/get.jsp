@@ -228,7 +228,7 @@ function insertR_reply(reply_num){
 									<input type="button" value="Delete" id="delete" name="delete"
 										class="btn btn-default">
 								</c:if> <input type="button" value="to List"
-								onclick="location.href='javascript:history.go(-1)'"
+								onclick="location.href='${pageContext.request.contextPath}/boards?page=${page}&friend_id=${friend_id }'"
 								class="btn btn-default"></td>
 					</table>
 					<hr>
@@ -251,9 +251,10 @@ function insertR_reply(reply_num){
 								</c:if>
 								<td><div id="replyUpdate_content${reply.reply_num }">${reply.reply_content }</div></td>
 								<td>${reply.reply_date }</td>
-								<!-- 대댓글 버튼:자기 자신이 아닐 때만 나타나도록 -->
+								<!--대댓글 버튼:자기 자신이 아닐 때만 나타나도록-->
 								<c:if
 									test="${loginid!=reply.reply_id&&loginid!=reply.rreply_id }">
+									d
 									<td><input type="button" id="insertR_reply"
 										name="insertR_reply" value="write Reply"
 										onclick="insertR_reply('${reply.reply_num}')"
