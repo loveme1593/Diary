@@ -55,6 +55,7 @@ public class CustomerController {
 		}
 		if (cusCompare.getCus_pw().equals(customer.getCus_pw())) {
 			logger.info("로그인 성공");
+			model.addAttribute("loginResult", "로그인에 성공하였습니다.");
 			session.setAttribute("loginid", cusCompare.getCus_id());
 			session.setAttribute("loginNickname", cusCompare.getCus_nickname());
 			//새 메세지, 친구 요청 수 세기 위한 세션
@@ -84,6 +85,7 @@ public class CustomerController {
 	public String logout(Model model) {
 		session.invalidate();
 		logger.info("로그아웃");
+		model.addAttribute("loginResult", "로그아웃 되었습니다.");
 		return "home";
 	}
 

@@ -114,7 +114,7 @@
 						<h3 class="post-subtitle">KISSCO corp. 2017 3rd Intern</h3>
 					</a>
 					<p class="post-meta">
-						Made by <a href="${pageContext.request.contextPath}/">Moonkyung
+						Developed by <a href="${pageContext.request.contextPath}/">Moonkyung
 							PARK</a> on September, 2017
 					</p>
 				</div>
