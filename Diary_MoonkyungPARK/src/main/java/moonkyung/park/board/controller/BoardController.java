@@ -165,9 +165,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody int deleteBoard(int board_num) {
+	public @ResponseBody int deleteBoard(Model model, int board_num, int page, String friend_id) {
 		int result = bRepository.deleteBoard(board_num);
 		logger.info("글 삭제: " + result);
+		model.addAttribute("page", page);
+		model.addAttribute("friend_id", friend_id);
 		return result;
 	}
 
