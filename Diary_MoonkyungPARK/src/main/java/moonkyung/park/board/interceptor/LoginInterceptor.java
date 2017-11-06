@@ -17,18 +17,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 		HttpSession session = request.getSession();
 		String loginid = (String) session.getAttribute("loginid");
-
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
 		String str = "";
-
 		if (loginid == null) {
-			response.sendRedirect(request.getContextPath() + "/customer/login");
-			str += "<script language='javascript'>";
-			str += "alert('Please log-in and use our service')";
-			str += "</script>";
-			out.print(str);
-			System.out.println("LoginInterceptor is working..");
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			str += "<script> alert('Please log-in and use our service');";
+			str += "location.href='" + request.getContextPath() + "/customer/login'; </script>";
+			// System.out.println("LoginInterceptor is working..");
+			// response.sendRedirect(request.getContextPath() + "/customer/login");
+			out.println(str);
+			out.flush();
 			return false;
 		}
 		return super.preHandle(request, response, handler);
