@@ -13,10 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select* from board_message
 		<choose>
 			<when test="category=='read'">
-				where friend_id=#{cus_id}
+				where friend_id=#{cus_id} and friend_status!='delete'
 			</when>
 			<when test="category=='sent'">
-				where cus_id=#{cus_id}
+				where cus_id=#{cus_id} and cus_status!='delete'
 			</when>
 		</choose>
 		order by message_date
