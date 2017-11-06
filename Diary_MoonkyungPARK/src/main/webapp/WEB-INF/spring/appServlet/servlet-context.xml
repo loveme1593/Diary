@@ -28,9 +28,28 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	<beans:bean id="LoginInterceptor"
+		class="moonkyung.park.board.interceptor.LoginInterceptor">
+	</beans:bean>
+	<interceptors>
+		<interceptor>
+			<mapping path="/message/management" />
+			<mapping path="/message/send" />
+			<mapping path="/message/get" />
+			<mapping path="/message/delete" />
+			<mapping path="/boards" />
+			<mapping path="/boards/insert" />
+			<mapping path="/boards/get" />
+			<mapping path="/boards/delete" />
+			<mapping path="/boards/update" />
+			<mapping path="/friend/findFriends" />
+			<mapping path="/friend/friendRequest" />
+			<mapping path="/friend/management" />
+
+			<beans:ref bean="LoginInterceptor" />
+		</interceptor>
+	</interceptors>
 
 	<context:component-scan base-package="moonkyung.park.board" />
-
-
 
 </beans:beans>

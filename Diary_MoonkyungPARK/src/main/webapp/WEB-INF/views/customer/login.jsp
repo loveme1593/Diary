@@ -57,16 +57,17 @@
 							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
 						</li> -->
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">${loginid} <span class="caret"></span></a>
+							data-toggle="dropdown" href="#">${loginid} <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class="nav-item" style="padding-right:.5rem; padding-left:.5rem;">
-							Logged-in as <br>
-							<strong class="css-truncate-target">${loginid }</strong>
-							</li>
-							 <li class="dropdown-divider"></li>
+								<li class="nav-item"
+									style="padding-right: .5rem; padding-left: .5rem;">
+									Logged-in as <br> <strong class="css-truncate-target">${loginid }</strong>
+								</li>
+								<li class="dropdown-divider"></li>
 								<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
-						</li>
+									href="${pageContext.request.contextPath}/customer/logout">Logout</a>
+								</li>
 							</ul></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
@@ -144,7 +145,7 @@
 						</div>
 					</form>
 				</div>
-				<br> Are you not a member of this service? <a
+				<br> Are you not a member of us? <a
 					href="${pageContext.request.contextPath}/customer/join"> Join
 					Us</a> <br> Forgot your password? <a
 					href="${pageContext.request.contextPath}/customer/findPassword">Find
