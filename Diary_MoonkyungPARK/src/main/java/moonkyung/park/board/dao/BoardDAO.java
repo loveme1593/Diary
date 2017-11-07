@@ -19,9 +19,9 @@ public interface BoardDAO {
 
 	public int deleteBoard(int board_num) throws Exception;
 
+	public int deletePhoto(Board board) throws Exception;
+
 	public int updateBoard(Board board) throws Exception;
 
-	public int updatePhoto(Board board) throws Exception;
-	
 	public void changeReply(Map<String, Integer> change) throws Exception;
 }

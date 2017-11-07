@@ -11,6 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{board_title},#{board_content},#{board_id},#{board_nickname},#{board_see}
 		)
 	</insert>
+	
+	<insert id="insertphoto">
+		insert into board_photo(board_num, board_fileid,board_uploadfileid)
+		values(
+		#{board_num},#{board_fileid},#{board_uploadfileid}
+		)
+	</insert>
 
 	<select id="getBoards" resultType="Board" parameterType="Map">
 		<!--select *

@@ -32,6 +32,18 @@ public class BoardRepository {
 		}
 		return result;
 	}
+	
+	public int insertPhoto(Board board) {
+		int result=0;
+		bdao=sqlSession.getMapper(BoardDAO.class);
+		try {
+			result=bdao.insertPhoto(board);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	public ArrayList<Board> getBoards(String friend_id) {
 		ArrayList<Board> result = new ArrayList();

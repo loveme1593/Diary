@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import moonkyung.park.board.repository.BoardRepository;
 import moonkyung.park.board.repository.CustomerRepository;
@@ -82,7 +83,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public @ResponseBody int insertBoard(Board board) {
+	public @ResponseBody int insertBoard(Board board,MultipartFile upload) {
 		String board_id = (String) session.getAttribute("loginid");
 		String board_nickname = cRepository.selectNickname(board_id);
 		board.setBoard_id(board_id);
