@@ -13,15 +13,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<select id="getBoards" resultType="Board" parameterType="Map">
-		select *
+		<!--select *
 		from
 		board where board_id=#{friend_id}
-		order by board_date desc
+		order by board_date desc-->
+		select * from board left join board_file on board.board_num=board_file.board_num 
+        where board.board_id=#{friend_id} 
+        order by board.board_date desc;
 	</select>
 
 	<select id="getBoard" resultType="Board">
-		select* from board where
-		board_num=#{board_num}
+		<!--select* from board where
+		board_num=#{board_num}-->
+		select*from board left join board_file on board.board_num=board_file.board_num
+        where board.board_num=#{board_num}
 	</select>
 
 	<update id="upHits">

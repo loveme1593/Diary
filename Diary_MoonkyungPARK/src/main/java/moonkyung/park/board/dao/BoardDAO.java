@@ -9,6 +9,8 @@ public interface BoardDAO {
 
 	public int insertBoard(Board board) throws Exception;
 
+	public int insertPhoto(Board board) throws Exception;
+
 	public ArrayList<Board> getBoards(String friend_id) throws Exception;
 
 	public Board getBoard(int board_num) throws Exception;
@@ -19,5 +21,7 @@ public interface BoardDAO {
 
 	public int updateBoard(Board board) throws Exception;
 
+	public int updatePhoto(Board board) throws Exception;
+	
 	public void changeReply(Map<String, Integer> change) throws Exception;
 }

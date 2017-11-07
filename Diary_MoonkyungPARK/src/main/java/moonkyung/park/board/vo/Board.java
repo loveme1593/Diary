@@ -19,9 +19,29 @@ public class Board {
 	private String board_nickname;
 	// 댓글 수
 	private int board_replies;
-	//공개범위
+	// 공개범위
 	private String board_see;
+	// 원본 파일 이름
+	private String board_fileid;
+	// 저장되는 파일 이름
+	private String board_uploadfileid;
 	
+	public String getBoard_fileid() {
+		return board_fileid;
+	}
+
+	public void setBoard_fileid(String board_fileid) {
+		this.board_fileid = board_fileid;
+	}
+
+	public String getBoard_uploadfileid() {
+		return board_uploadfileid;
+	}
+
+	public void setBoard_uploadfileid(String board_uploadfileid) {
+		this.board_uploadfileid = board_uploadfileid;
+	}
+
 	public String getBoard_see() {
 		return board_see;
 	}
@@ -103,7 +123,6 @@ public class Board {
 		return "Board [board_num=" + board_num + ", board_title=" + board_title + ", board_content=" + board_content
 				+ ", board_date=" + board_date + ", board_id=" + board_id + ", board_hits=" + board_hits
 				+ ", board_nickname=" + board_nickname + ", board_replies=" + board_replies + ", board_see=" + board_see
-				+ "]";
+				+ ", board_fileid=" + board_fileid + ", board_uploadfileid=" + board_uploadfileid + "]";
 	}
-
 }
