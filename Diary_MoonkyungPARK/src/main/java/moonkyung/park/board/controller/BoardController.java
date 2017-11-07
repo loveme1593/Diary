@@ -1,14 +1,20 @@
 package moonkyung.park.board.controller;
 
+import java.io.FileInputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -85,18 +91,30 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public String insertBoard(Board board, MultipartFile upload) {
+	public String insertBoard(Board board, MultipartFile upload, Model model) {
 		String board_id = (String) session.getAttribute("loginid");
 		String board_nickname = cRepository.selectNickname(board_id);
 		board.setBoard_id(board_id);
 		board.setBoard_nickname(board_nickname);
+		bRepository.insertBoard(board);
 		if (!upload.isEmpty()) {
+			System.out.println("upload file's name: "+upload.getOriginalFilename());
 			String board_uploadfileid = FileService.saveFile(upload, Configuration.PHOTOPATH);
 			board.setBoard_fileid(upload.getOriginalFilename());
 			board.setBoard_uploadfileid(board_uploadfileid);
 			bRepository.insertPhoto(board);
 		}
-		bRepository.insertBoard(board);
+		String friend_id = (String) session.getAttribute("loginid");
+		int page = 1;
+		ArrayList<Board> boards = bRepository.getBoards(friend_id);
+		int totalPages = Pagination.totalPages(boards);
+		page = Pagination.getCurrentPage(page, totalPages);
+		boards = Pagination.totalPosts(boards, page);
+		int endPage = Pagination.endPage(page, totalPages);
+		model.addAttribute("boards", boards);
+		model.addAttribute("page", page);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("friend_id", friend_id);
 		return "boards/home";
 	}
 
@@ -118,6 +136,48 @@ public class BoardController {
 		ArrayList<Reply> reply = rRepository.getReplies(board_num);
 		model.addAttribute("reply", reply);
 		return "boards/get";
+	}
+
+	@RequestMapping(value = "/download", method = RequestMethod.GET)
+	public String download(int board_num, HttpServletResponse response) {
+
+		Board board = bRepository.getBoard(board_num);
+
+		String originalfile = board.getBoard_fileid();
+
+		try {
+			response.setHeader("Content-Disposition",
+					"attachment;filename=" + URLEncoder.encode(originalfile, "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		String fullpath = Configuration.PHOTOPATH + "/" + board.getBoard_uploadfileid();
+
+		ServletOutputStream fileout = null;
+		FileInputStream filein = null;
+
+		try {
+			filein = new FileInputStream(fullpath);
+			fileout = response.getOutputStream();
+			FileCopyUtils.copy(filein, fileout);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (filein != null) {
+					filein.close();
+				}
+				if (fileout != null) {
+					fileout.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/insertReply", method = RequestMethod.POST)
@@ -174,15 +234,14 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public @ResponseBody int deleteBoard(Model model, int board_num, int page, String friend_id) {
+	public @ResponseBody int deleteBoard(Model model, int board_num) {
 		Board board = bRepository.getBoard(board_num);
-		if (!board.getBoard_uploadfileid().equals("")) {
-			FileService.deleteFile(board.getBoard_uploadfileid());
+		boolean fileDeleteResult=false;
+		if (board.getBoard_uploadfileid() != null) {
+			fileDeleteResult=FileService.deleteFile(board.getBoard_uploadfileid());
 		}
 		int result = bRepository.deleteBoard(board_num);
-		logger.info("글 삭제: " + result);
-		model.addAttribute("page", page);
-		model.addAttribute("friend_id", friend_id);
+		logger.info("글 삭제: " + result+" , "+fileDeleteResult);
 		return result;
 	}
 
@@ -190,6 +249,9 @@ public class BoardController {
 	public String updateBoard(int board_num, Model model, int page, String friend_id) {
 		Board board = bRepository.getBoard(board_num);
 		String loginid = (String) session.getAttribute("loginid");
+		if(board.getBoard_fileid()!=null) {
+			FileService.deleteFile(board.getBoard_uploadfileid());
+		}
 		model.addAttribute("page", page);
 		model.addAttribute("friend_id", friend_id);
 		if (board.getBoard_id().equals(loginid)) {

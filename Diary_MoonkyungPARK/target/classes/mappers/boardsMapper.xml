@@ -30,8 +30,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getBoard" resultType="Board">
-		<!--select* from board where
-		board_num=#{board_num}-->
 		select*from board left join board_file on board.board_num=board_file.board_num
         where board.board_num=#{board_num}
 	</select>

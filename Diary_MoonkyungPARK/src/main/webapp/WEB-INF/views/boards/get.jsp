@@ -231,23 +231,30 @@ function insertR_reply(reply_num){
 						</tr>
 						<tr>
 							<td>Content</td>
-							<td>${board.board_content }</td>
+							<td><c:if test="${!empty board.board_fileid }">
+									<img
+										src="${pageContext.request.contextPath}/boards/download?board_num=${board.board_num}"
+										height="400" width="400">
+									<br>
+									<br>
+								</c:if> ${board.board_content }</td>
 						</tr>
-						<tr>
-							<td><c:if test="${loginid==board.board_id }">
-									<input type="button" value="Update" id="update" name="update"
-										onclick="updateBoard('${board.board_num}')"
-										class="btn btn-default">
-									<input type="button" value="Delete" id="delete" name="delete"
-										class="btn btn-default">
-								</c:if> <input type="button" value="to List"
-								onclick="location.href='${pageContext.request.contextPath}/boards?page=${page}&friend_id=${friend_id }'"
-								class="btn btn-default"></td>
 					</table>
+					<c:if test="${loginid==board.board_id }">
+						<input type="button" value="Update" id="update" name="update"
+							onclick="updateBoard('${board.board_num}')"
+							class="btn btn-default">
+						<input type="button" value="Delete" id="delete" name="delete"
+							class="btn btn-default">
+					</c:if>
+					<input type="button" value="to List"
+						onclick="location.href='${pageContext.request.contextPath}/boards?page=${page}&friend_id=${friend_id }'"
+						class="btn btn-default"> <br>
 					<hr>
 					<!-- 리플 -->
 					<c:if test="${status=='friend'||status=='myself' }">
-						<input type="text" id="reply_content" name="reply_content" class="form-control" style="width:80%">
+						<input type="text" id="reply_content" name="reply_content"
+							class="form-control" style="width: 80%">
 						<input type="button" id="insertReply" name="insertReply"
 							value="write Reply" class="btn btn-info">
 					</c:if>

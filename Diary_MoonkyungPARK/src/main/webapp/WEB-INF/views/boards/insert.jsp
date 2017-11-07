@@ -169,7 +169,7 @@
 										class="form-control" rows="20"></textArea></td>
 							</tr>
 							<tr>
-								<td><input type="submit" class="btn btn-default"></td>
+								<td><input type="submit" class="btn btn-default" value="Write"></td>
 								<td><input type="button" value="back"
 									onclick="location.href='${pageContext.request.contextPath}/'"
 									class="btn btn-default"></td>

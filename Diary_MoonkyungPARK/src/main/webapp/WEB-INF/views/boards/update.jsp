@@ -150,8 +150,8 @@
 					<table class="table">
 						<tr>
 							<td>Title</td>
-							<td><input type="text" id="board_title" name="board_title" class="form-control"
-								value="${board.board_title }"></td>
+							<td><input type="text" id="board_title" name="board_title"
+								class="form-control" value="${board.board_title }"></td>
 						</tr>
 						<tr>
 							<td>Privacy bounds</td>
@@ -161,8 +161,13 @@
 								<input type="radio" id="secret" name="board_see" value="secret">private<br></td>
 						</tr>
 						<tr>
+							<td>Picture</td>
+							<td><input type="file" name="upload"></td>
+						</tr>
+						<tr>
 							<td>Content</td>
-							<td><textArea id="board_content" name="board_content" class="form-control" rows="20">${board.board_content}</textArea></td>
+							<td><textArea id="board_content" name="board_content"
+									class="form-control" rows="20">${board.board_content}</textArea></td>
 						</tr>
 					</table>
 					<input type="button" value="Update" id="update" name="update"
