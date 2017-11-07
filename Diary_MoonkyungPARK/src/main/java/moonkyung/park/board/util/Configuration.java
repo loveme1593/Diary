@@ -1,4 +1,4 @@
-package moonkyung.park.board.controller;
+package moonkyung.park.board.util;
 
 public class Configuration {
 

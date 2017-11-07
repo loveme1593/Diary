@@ -2,7 +2,6 @@ package moonkyung.park.board.util;
 
 import java.util.ArrayList;
 
-import moonkyung.park.board.controller.Configuration;
 import moonkyung.park.board.vo.Board;
 import moonkyung.park.board.vo.Message;
 
