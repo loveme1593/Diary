@@ -13,9 +13,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<insert id="insertphoto">
-		insert into board_photo(board_num, board_fileid,board_uploadfileid)
+		insert into board_file(board_num, board_fileid,board_uploadfileid)
 		values(
-		#{board_num},#{board_fileid},#{board_uploadfileid}
+		(select max(board_num) from board),#{board_fileid},#{board_uploadfileid}
 		)
 	</insert>
 

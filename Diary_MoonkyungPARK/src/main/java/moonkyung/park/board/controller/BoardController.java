@@ -19,6 +19,8 @@ import moonkyung.park.board.repository.BoardRepository;
 import moonkyung.park.board.repository.CustomerRepository;
 import moonkyung.park.board.repository.FriendRepository;
 import moonkyung.park.board.repository.ReplyRepository;
+import moonkyung.park.board.util.Configuration;
+import moonkyung.park.board.util.FileService;
 import moonkyung.park.board.util.Pagination;
 import moonkyung.park.board.vo.Board;
 import moonkyung.park.board.vo.Reply;
@@ -83,11 +85,15 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public @ResponseBody int insertBoard(Board board,MultipartFile upload) {
+	public @ResponseBody int insertBoard(Board board, MultipartFile upload) {
 		String board_id = (String) session.getAttribute("loginid");
 		String board_nickname = cRepository.selectNickname(board_id);
 		board.setBoard_id(board_id);
 		board.setBoard_nickname(board_nickname);
+		if (!upload.isEmpty()) {
+			FileService.saveFile(upload, Configuration.PHOTOPATH);
+			bRepository.insertPhoto(board);
+		}
 		int result = bRepository.insertBoard(board);
 		return result;
 	}
