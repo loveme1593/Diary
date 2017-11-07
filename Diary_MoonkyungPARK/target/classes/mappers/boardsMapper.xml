@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
-	<insert id="insertphoto">
+	<insert id="insertPhoto">
 		insert into board_file(board_num, board_fileid,board_uploadfileid)
 		values(
 		(select max(board_num) from board),#{board_fileid},#{board_uploadfileid}
@@ -69,6 +69,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				board_num=#{board_num}
 			</when>
 		</choose>
-
 	</update>
 </mapper>

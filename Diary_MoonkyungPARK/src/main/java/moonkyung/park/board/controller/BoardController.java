@@ -46,7 +46,7 @@ public class BoardController {
 	@Inject
 	FriendRepository fRepository;
 
-	Pagination pagination = new Pagination();
+	Pagination Pagination = new Pagination();
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String getBoards(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
@@ -65,10 +65,10 @@ public class BoardController {
 			}
 		}
 		ArrayList<Board> boards = bRepository.getBoards(friend_id);
-		int totalPages = pagination.totalPages(boards);
-		page = pagination.getCurrentPage(page, totalPages);
-		boards = pagination.totalPosts(boards, page);
-		int endPage = pagination.endPage(page, totalPages);
+		int totalPages = Pagination.totalPages(boards);
+		page = Pagination.getCurrentPage(page, totalPages);
+		boards = Pagination.totalPosts(boards, page);
+		int endPage = Pagination.endPage(page, totalPages);
 		logger.info("총 페이지: " + totalPages + ", 끝페이지: " + endPage + " 현재 페이지: " + page + " 게시물 수: " + boards.size()
 				+ " status: " + (String) session.getAttribute("status"));
 		model.addAttribute("boards", boards);
@@ -85,17 +85,19 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public @ResponseBody int insertBoard(Board board, MultipartFile upload) {
+	public String insertBoard(Board board, MultipartFile upload) {
 		String board_id = (String) session.getAttribute("loginid");
 		String board_nickname = cRepository.selectNickname(board_id);
 		board.setBoard_id(board_id);
 		board.setBoard_nickname(board_nickname);
 		if (!upload.isEmpty()) {
-			FileService.saveFile(upload, Configuration.PHOTOPATH);
+			String board_uploadfileid = FileService.saveFile(upload, Configuration.PHOTOPATH);
+			board.setBoard_fileid(upload.getOriginalFilename());
+			board.setBoard_uploadfileid(board_uploadfileid);
 			bRepository.insertPhoto(board);
 		}
-		int result = bRepository.insertBoard(board);
-		return result;
+		bRepository.insertBoard(board);
+		return "boards/home";
 	}
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
@@ -173,6 +175,10 @@ public class BoardController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody int deleteBoard(Model model, int board_num, int page, String friend_id) {
+		Board board = bRepository.getBoard(board_num);
+		if (!board.getBoard_uploadfileid().equals("")) {
+			FileService.deleteFile(board.getBoard_uploadfileid());
+		}
 		int result = bRepository.deleteBoard(board_num);
 		logger.info("글 삭제: " + result);
 		model.addAttribute("page", page);
@@ -195,7 +201,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody int updateBoard(int board_num, Board board, int page, String friend_id, Model model) {
+	public @ResponseBody int updateBoard(int board_num, Board board, int page, String friend_id, Model model,
+			MultipartFile upload) {
+		if (!board.getBoard_uploadfileid().equals("")) {
+			FileService.deleteFile(board.getBoard_uploadfileid());
+		}
 		int result = bRepository.updateBoard(board);
 		logger.info("글 수정 결과: " + board.toString());
 		model.addAttribute("page", page);
