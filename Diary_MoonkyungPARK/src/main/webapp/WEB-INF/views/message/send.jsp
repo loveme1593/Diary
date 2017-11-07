@@ -46,14 +46,18 @@
 		</tr>
 		<tr>
 			<td>Title</td>
-			<td><input type="text" id="message_title" required></td>
+			<td><input type="text" id="message_title" class="form-control"
+				required></td>
 		</tr>
 		<tr>
 			<td>Content</td>
-			<td><textArea id="message" name="message" required></textArea></td>
+			<td><textArea id="message" name="message" class="form-control"
+					rows="10" required></textArea></td>
 		</tr>
 	</table>
-	<input type="button" id="send" value="Send message"
-		class="btn btn-default">
+	<div class="center">
+		<input type="button" id="send" value="Send message"
+			class="btn btn-default">
+	</div>
 </body>
 </html>

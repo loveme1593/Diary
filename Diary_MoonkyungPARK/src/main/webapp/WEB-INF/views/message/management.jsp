@@ -154,7 +154,8 @@
 								<tr>
 									<td><a
 										href="${pageContext.request.contextPath}/message/get?message_num=${item.message_num}&category=${category}&page=${page}">${item.message_title }
-											<c:if test="${item.friend_status=='receive'&&category=='read'||item.cus_status=='sent'&&category=='sent'}">
+											<c:if
+												test="${item.friend_status=='receive'&&category=='read'||item.cus_status=='sent'&&category=='sent'}">
 												<span class="w3-badge w3-red">New</span>
 											</c:if>
 									</a></td>
@@ -183,14 +184,16 @@
 						onclick="location.href='${pageContext.request.contextPath}/'"
 						class="btn btn-default">
 					<hr>
-					<br> <a
-						href="${pageContext.request.contextPath}/message/management?page=${page-1}&category=${category}">&laquo;</a>
-					<c:forEach var="page" begin="${page }" end="${endPage }">
+					<div style="text-align: center;">
+						<br> <a
+							href="${pageContext.request.contextPath}/message/management?page=${page-1}&category=${category}">&laquo;</a>
+						<c:forEach var="page" begin="${page }" end="${endPage }">
+							<a
+								href="${pageContext.request.contextPath}/message/management?page=${page}&category=${category}">${page}</a>
+						</c:forEach>
 						<a
-							href="${pageContext.request.contextPath}/message/management?page=${page}&category=${category}">${page}</a>
-					</c:forEach>
-					<a
-						href="${pageContext.request.contextPath}/message/management?page=${page+1}&category=${category}">&raquo;</a>
+							href="${pageContext.request.contextPath}/message/management?page=${page+1}&category=${category}">&raquo;</a>
+					</div>
 				</div>
 			</div>
 		</div>
