@@ -34,8 +34,8 @@ $(function(){
 	$('#insertReply').on('click', insertReply);
 });
 function updateChangeReply(reply_num,reply_content){
-	$('#replyUpdate_content'+reply_num).replaceWith('<input type="text" id="reply_text" value='+reply_content+'>');
-	$('#updateReply'+reply_num).replaceWith('<input type="button" id="reply_reply" value="reply update" class="btn btn-default">');
+	$('#replyUpdate_content'+reply_num).replaceWith('<input type="text" style="width:80%" class="form-control" id="reply_text" value='+reply_content+'>');
+	$('#updateReply'+reply_num).replaceWith('<input type="button" id="reply_reply" value="reply update" class="btn btn-info">');
 	$('#reply_reply').on('click',function(){
 		$.ajax({
 			url:"updateReply",
@@ -103,7 +103,7 @@ function deleteReply(reply_num){
 	}
 }
 function insertR_reply(reply_num){
-	$("#"+reply_num).replaceWith('<input type="text"id="r_reply_content"> <input type="button"id="r_reply_btn" value="write reply" class="btn btn-default">');
+	$("#"+reply_num).replaceWith('<input type="text"id="r_reply_content" class="form-control" style="width:80%"> <input type="button"id="r_reply_btn" value="write reply" class="btn btn-info">');
 	$('#r_reply_btn').on('click',function(){
 		$.ajax({
 			method:"post",
@@ -247,9 +247,9 @@ function insertR_reply(reply_num){
 					<hr>
 					<!-- 리플 -->
 					<c:if test="${status=='friend'||status=='myself' }">
-						<input type="text" id="reply_content" name="reply_content">
+						<input type="text" id="reply_content" name="reply_content" class="form-control" style="width:80%">
 						<input type="button" id="insertReply" name="insertReply"
-							value="write Reply" class="btn btn-default">
+							value="write Reply" class="btn btn-info">
 					</c:if>
 					<br>
 					<c:forEach var="reply" items="${reply }">
@@ -271,7 +271,7 @@ function insertR_reply(reply_num){
 									<td><input type="button" id="insertR_reply"
 										name="insertR_reply" value="write Reply"
 										onclick="insertR_reply('${reply.reply_num}')"
-										class="btn btn-default"></td>
+										class="btn btn-info"></td>
 								</c:if>
 								<td>
 									<div id="${reply.reply_num }"></div>
@@ -280,12 +280,12 @@ function insertR_reply(reply_num){
 									test="${loginid==reply.reply_id&&empty reply.rreply_id||loginid==reply.rreply_id }">
 									<td><input type="button"
 										id="updateReply${reply.reply_num }" name="updateReply"
-										value="update Reply" class="btn btn-default"
+										value="update Reply" class="btn btn-info"
 										onClick="updateChangeReply('${reply.reply_num}','${reply.reply_content} ')"></td>
 									<td><input type="button" id="deleteReply"
 										name="deleteReply" value="delete Reply"
 										onClick="deleteReply('${reply.reply_num}')"
-										class="btn btn-default"></td>
+										class="btn btn-info"></td>
 								</c:if>
 							</tr>
 						</table>

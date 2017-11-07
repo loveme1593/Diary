@@ -30,7 +30,13 @@
 		<property name="username" value="moonkyung"></property>
 		<property name="password" value="moonkyung"></property>
 	</bean>
+	<!-- file upload를 위한 bean 설정 -->
 
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		name="multipartResolver">
+		<property name="maxUploadSize" value="10485760" />
+	</bean>
 	<context:component-scan base-package="moonkyung.park.board">
 	</context:component-scan>
 </beans>

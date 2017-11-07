@@ -50,6 +50,14 @@ create table board_customer(
  primary key(board_num)
  );
  
+ //사진 업로드
+ create table board_file(
+ board_num int,
+ board_fileid varchar(200) not null,
+ board_uploadfileid varchar(200) not null,
+ foreign key(board_num) references board(board_num) on delete cascade
+ );
+ 
  //댓글
  create table reply(
  board_num int,

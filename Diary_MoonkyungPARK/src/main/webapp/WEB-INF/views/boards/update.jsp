@@ -150,7 +150,7 @@
 					<table class="table">
 						<tr>
 							<td>Title</td>
-							<td><input type="text" id="board_title" name="board_title"
+							<td><input type="text" id="board_title" name="board_title" class="form-control"
 								value="${board.board_title }"></td>
 						</tr>
 						<tr>
@@ -162,7 +162,7 @@
 						</tr>
 						<tr>
 							<td>Content</td>
-							<td><textArea id="board_content" name="board_content">
+							<td><textArea id="board_content" name="board_content" class="form-control" rows="20">
            ${board.board_content}
 		</textArea></td>
 						</tr>
