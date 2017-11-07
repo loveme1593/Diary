@@ -162,9 +162,7 @@
 						</tr>
 						<tr>
 							<td>Content</td>
-							<td><textArea id="board_content" name="board_content" class="form-control" rows="20">
-           ${board.board_content}
-		</textArea></td>
+							<td><textArea id="board_content" name="board_content" class="form-control" rows="20">${board.board_content}</textArea></td>
 						</tr>
 					</table>
 					<input type="button" value="Update" id="update" name="update"

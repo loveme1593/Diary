@@ -28,29 +28,30 @@
 	rel="stylesheet">
 </head>
 <script>
-	$(function() {
-		$('#insert').on('click', insertBoard);
-	});
-	function insertBoard() {
-		$
-				.ajax({
-					method : "post",
-					url : "insert",
-					data : {
-						"board_title" : $("#board_title").val(),
-						"board_content" : $("#board_content").val(),
-						"board_see" : $(
-								"input[type=radio][name=board_see]:checked")
-								.val()
-					},
-					success : function(result) {
-						if (result == 1) {
-							alert('You posted successfully');
-							location.href = "${pageContext.request.contextPath}/boards";
-						}
-					}
-				});
-	}
+	/*$(function() {
+	 $('#insert').on('click', insertBoard);
+	 });
+	 function insertBoard() {
+	 $
+	 .ajax({
+	 method : "post",
+	 url : "insert",
+	 data : {
+	 "board_title" : $("#board_title").val(),
+	 "board_content" : $("#board_content").val(),
+	 "board_see" : $(
+	 "input[type=radio][name=board_see]:checked")
+	 .val()
+	 },
+	 success : function(result) {
+	 if (result == 1) {
+	 alert('You posted successfully');
+	 location.href = "${pageContext.request.contextPath}/boards";
+	 }
+	 }
+	 });
+	 }
+	 */
 </script>
 <body>
 	<!-- Navigation -->
@@ -79,16 +80,17 @@
 							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
 						</li> -->
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">${loginid} <span class="caret"></span></a>
+							data-toggle="dropdown" href="#">${loginid} <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class="nav-item" style="padding-right:.5rem; padding-left:.5rem;">
-							Logged-in as <br>
-							<strong class="css-truncate-target">${loginid }</strong>
-							</li>
-							 <li class="dropdown-divider"></li>
+								<li class="nav-item"
+									style="padding-right: .5rem; padding-left: .5rem;">
+									Logged-in as <br> <strong class="css-truncate-target">${loginid }</strong>
+								</li>
+								<li class="dropdown-divider"></li>
 								<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
-						</li>
+									href="${pageContext.request.contextPath}/customer/logout">Logout</a>
+								</li>
 							</ul></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
@@ -143,32 +145,38 @@
 				<div class="post-preview">
 					<h2>Write diary</h2>
 					<hr>
-					<table class="table" cellpadding="10">
-						<tr>
-							<td>Title</td>
-							<td><input type="text" id="board_title" name="board_title" class="form-control">
-							</td>
-						</tr>
-						<tr>
-							<td>Privacy bounds</td>
-							<td><input type="radio" name="board_see" value="all" checked>all<br>
-								<input type="radio" name="board_see" value="friend">to
-								only friends<br> <input type="radio" name="board_see"
-								value="secret">private<br></td>
-						</tr>
-						<tr>
-							<td>Content</td>
-							<td><textArea id="board_content" name="board_content" class="form-control" rows="20">
-		</textArea></td>
-						</tr>
-						<tr>
-							<td><input type="button" value="Write" id="insert"
-								name="insert" class="btn btn-default"></td>
-							<td><input type="button" value="back"
-								onclick="location.href='${pageContext.request.contextPath}/'"
-								class="btn btn-default"></td>
-						</tr>
-					</table>
+					<form action="insert" method="post" enctype="multipart/form-data">
+						<table class="table" cellpadding="10">
+							<tr>
+								<td>Title</td>
+								<td><input type="text" id="board_title" name="board_title"
+									class="form-control"></td>
+							</tr>
+							<tr>
+								<td>Privacy bounds</td>
+								<td><input type="radio" name="board_see" value="all"
+									checked>all<br> <input type="radio"
+									name="board_see" value="friend">to only friends<br>
+									<input type="radio" name="board_see" value="secret">private<br></td>
+							</tr>
+							<tr>
+								<td>Picture</td>
+								<td><input type="file" name="upload"></td>
+							</tr>
+							<tr>
+								<td>Content</td>
+								<td><textArea id="board_content" name="board_content"
+										class="form-control" rows="20"></textArea></td>
+							</tr>
+							<tr>
+								<td><input type="button" value="Write" id="insert"
+									name="insert" class="btn btn-default"></td>
+								<td><input type="button" value="back"
+									onclick="location.href='${pageContext.request.contextPath}/'"
+									class="btn btn-default"></td>
+							</tr>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>

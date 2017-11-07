@@ -34,7 +34,7 @@ public class FileService {
 		String originalFilename = mfile.getOriginalFilename();
 		
 		//저장할 파일명을 오늘 날짜의 년월일로 생성
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String savedFilename = sdf.format(new Date());
 		
 		//원본 파일의 확장자
