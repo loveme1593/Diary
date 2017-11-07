@@ -6,8 +6,9 @@ public class Configuration {
 	public static final String PHOTOPATH="C:/MKdiary/photo";
 	
 	//한 페이지에 표시되는 게시물의 수
-	public static final int PAGECOUNT=10;
+	public static final int POSTS=10;
 	
-	
+    //한 페이지에 표시되는 페이지의 수
+	public static final int PAGES=5;
 	
 }
