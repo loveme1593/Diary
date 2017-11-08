@@ -51,6 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		board_num=#{board_num}
 	</update>
+	
+	<update id="updatePhoto">
+		update board_file set board_fileid=#{board_fileid}, board_uploadfileid=#{board_uploadfileid}
+		where board_num=#{board_num}
+	</update>
 
 	<update id="changeReply">
 		<choose>

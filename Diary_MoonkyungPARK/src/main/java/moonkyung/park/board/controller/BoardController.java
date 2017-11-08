@@ -98,7 +98,7 @@ public class BoardController {
 		board.setBoard_nickname(board_nickname);
 		bRepository.insertBoard(board);
 		if (!upload.isEmpty()) {
-			System.out.println("upload file's name: "+upload.getOriginalFilename());
+			System.out.println("upload file's name: " + upload.getOriginalFilename());
 			String board_uploadfileid = FileService.saveFile(upload, Configuration.PHOTOPATH);
 			board.setBoard_fileid(upload.getOriginalFilename());
 			board.setBoard_uploadfileid(board_uploadfileid);
@@ -236,12 +236,12 @@ public class BoardController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public @ResponseBody int deleteBoard(Model model, int board_num) {
 		Board board = bRepository.getBoard(board_num);
-		boolean fileDeleteResult=false;
+		boolean fileDeleteResult = false;
 		if (board.getBoard_uploadfileid() != null) {
-			fileDeleteResult=FileService.deleteFile(board.getBoard_uploadfileid());
+			fileDeleteResult = FileService.deleteFile(board.getBoard_uploadfileid());
 		}
 		int result = bRepository.deleteBoard(board_num);
-		logger.info("글 삭제: " + result+" , "+fileDeleteResult);
+		logger.info("글 삭제: " + result + " , " + fileDeleteResult);
 		return result;
 	}
 
@@ -249,7 +249,7 @@ public class BoardController {
 	public String updateBoard(int board_num, Model model, int page, String friend_id) {
 		Board board = bRepository.getBoard(board_num);
 		String loginid = (String) session.getAttribute("loginid");
-		if(board.getBoard_fileid()!=null) {
+		if (board.getBoard_fileid() != null) {
 			FileService.deleteFile(board.getBoard_uploadfileid());
 		}
 		model.addAttribute("page", page);
@@ -263,15 +263,35 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public @ResponseBody int updateBoard(int board_num, Board board, int page, String friend_id, Model model,
+	public String updateBoard(int board_num, Board board, int page, String friend_id, Model model,
 			MultipartFile upload) {
-		if (!board.getBoard_uploadfileid().equals("")) {
-			FileService.deleteFile(board.getBoard_uploadfileid());
+		Board originalBoard = bRepository.getBoard(board_num);
+		String board_fileid = "";
+		String board_uploadfileid = "";
+		if (originalBoard.getBoard_fileid() != null) {
+			board_fileid = originalBoard.getBoard_fileid();
+			board_uploadfileid = originalBoard.getBoard_uploadfileid();
 		}
+		if (upload.getOriginalFilename() != null) {
+			if (!board_fileid.equals("")) {
+				board_fileid = board.getBoard_uploadfileid();
+				FileService.deleteFile(board_fileid);
+			}
+			board_uploadfileid = FileService.saveFile(upload, upload.getOriginalFilename());
+		}
+		board.setBoard_fileid(board_fileid);
+		board.setBoard_uploadfileid(board_uploadfileid);
 		int result = bRepository.updateBoard(board);
 		logger.info("글 수정 결과: " + board.toString());
+		ArrayList<Board> boards = bRepository.getBoards(friend_id);
+		int totalPages = Pagination.totalPages(boards);
+		page = Pagination.getCurrentPage(page, totalPages);
+		boards = Pagination.totalPosts(boards, page);
+		int endPage = Pagination.endPage(page, totalPages);
+		model.addAttribute("boards", boards);
 		model.addAttribute("page", page);
+		model.addAttribute("endPage", endPage);
 		model.addAttribute("friend_id", friend_id);
-		return board_num;
+		return "boards/home";
 	}
 }

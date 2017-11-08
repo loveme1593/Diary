@@ -32,12 +32,12 @@ public class BoardRepository {
 		}
 		return result;
 	}
-	
+
 	public int insertPhoto(Board board) {
-		int result=0;
-		bdao=sqlSession.getMapper(BoardDAO.class);
+		int result = 0;
+		bdao = sqlSession.getMapper(BoardDAO.class);
 		try {
-			result=bdao.insertPhoto(board);
+			result = bdao.insertPhoto(board);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,12 +97,24 @@ public class BoardRepository {
 		bdao = sqlSession.getMapper(BoardDAO.class);
 		try {
 			result = bdao.updateBoard(board);
+			bdao.updatePhoto(board);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return result;
+	}
 
+	public int updatePhoto(Board board) {
+		int result = 0;
+		bdao = sqlSession.getMapper(BoardDAO.class);
+		try {
+			result = bdao.updatePhoto(board);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	public void changeReply(int board_num, int type) {

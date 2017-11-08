@@ -23,5 +23,7 @@ public interface BoardDAO {
 
 	public int updateBoard(Board board) throws Exception;
 
+	public int updatePhoto(Board board) throws Exception;
+
 	public void changeReply(Map<String, Integer> change) throws Exception;
 }

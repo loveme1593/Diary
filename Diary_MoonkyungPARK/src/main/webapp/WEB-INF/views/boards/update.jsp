@@ -27,6 +27,7 @@
 	href="${pageContext.request.contextPath}/resources/css/clean-blog.min.css"
 	rel="stylesheet">
 </head>
+
 <script>
 	$(function() {
 		makeCheck();
@@ -54,6 +55,7 @@
 					}
 				});
 	}
+
 </script>
 <body>
 	<!-- Navigation -->
@@ -147,33 +149,41 @@
 				<div class="post-preview">
 					<h2>Update diary</h2>
 					<hr>
-					<table class="table">
-						<tr>
-							<td>Title</td>
-							<td><input type="text" id="board_title" name="board_title"
-								class="form-control" value="${board.board_title }"></td>
-						</tr>
-						<tr>
-							<td>Privacy bounds</td>
-							<td><input type="radio" id="all" name="board_see"
-								value="all">all<br> <input type="radio" id="friend"
-								name="board_see" value="friend">to only friends<br>
-								<input type="radio" id="secret" name="board_see" value="secret">private<br></td>
-						</tr>
-						<tr>
-							<td>Picture</td>
-							<td><input type="file" name="upload"></td>
-						</tr>
-						<tr>
-							<td>Content</td>
-							<td><textArea id="board_content" name="board_content"
-									class="form-control" rows="20">${board.board_content}</textArea></td>
-						</tr>
-					</table>
-					<input type="button" value="Update" id="update" name="update"
-						class="btn btn-default"> <input type="button" value="Back"
-						onclick="location.href='${pageContext.request.contextPath}/'"
-						class="btn btn-default">
+					<form action="update" method="post" enctype="multipart/form-data">
+						<input type="hidden" id="board_num" name="board_num"
+							value="${board.board_num }"> <input type="hidden"
+							id="page" name="page" value="${page }">
+							<input type="hidden"
+							id="friend_id" name="friend_id" value="${friend_id }">
+						<table class="table">
+							<tr>
+								<td>Title</td>
+								<td><input type="text" id="board_title" name="board_title"
+									class="form-control" value="${board.board_title }"></td>
+							</tr>
+							<tr>
+								<td>Privacy bounds</td>
+								<td><input type="radio" id="all" name="board_see"
+									value="all">all<br> <input type="radio"
+									id="friend" name="board_see" value="friend">to only
+									friends<br> <input type="radio" id="secret"
+									name="board_see" value="secret">private<br></td>
+							</tr>
+							<tr>
+								<td>Picture</td>
+								<td><input type="file" name="upload"></td>
+							</tr>
+							<tr>
+								<td>Content</td>
+								<td><textArea id="board_content" name="board_content"
+										class="form-control" rows="20">${board.board_content}</textArea></td>
+							</tr>
+						</table>
+						<input type="submit" value="Update" class="btn btn-default">
+						<input type="button" value="Back"
+							onclick="location.href='${pageContext.request.contextPath}/'"
+							class="btn btn-default">
+					</form>
 				</div>
 			</div>
 		</div>
