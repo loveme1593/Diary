@@ -41,8 +41,8 @@ public class FriendController {
 			@RequestParam(value = "searchContent", defaultValue = "") String searchContent) {
 		int result = 0;
 		ArrayList<Customer> friends = new ArrayList();
-		logger.info("searchType: " + searchType + ", searchContent: " + searchContent);
 		friends = fRepository.findFriends(searchType, searchContent);
+		logger.info("searchType: " + searchType + ", searchContent: " + searchContent + " , " + friends.size());
 		model.addAttribute("friends", friends);
 		model.addAttribute("searchType", searchType);
 		model.addAttribute("searchContent", searchContent);

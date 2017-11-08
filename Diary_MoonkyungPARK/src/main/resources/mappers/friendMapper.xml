@@ -3,33 +3,25 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="moonkyung.park.board.dao.FriendDAO">
-	<insert id="addInformation" parameterType="Customer">
-		insert into
-		board_friend(cus_id,cus_gender,cus_nickname,cus_hobbies,cus_status)values(
-		#{cus_id},#{cus_gender},#{cus_nickname},#{cus_hobbies},'info'
-		)
-	</insert>
 	<select id="numofFriendRequest" parameterType="String" resultType="_int">
 	select count(*) from board_friend where cus_id=#{cus_id} and cus_status='receive'
 	</select>
 	<select id="findFriends" parameterType="Map" resultType="Customer">
-		select *
-		from
-		board_friend
+		select* from board_customer left join board_friend on board_customer.cus_id=board_friend.cus_id
 		<choose>
 			<when test="searchType=='cus_id'">
-				where cus_id like
+				where board_customer.cus_id like
 				CONCAT('%',#{searchContent},'%')
 			</when>
 			<when test="searchType=='cus_nickname'">
-				where cus_nickname like
+				where board_customer.cus_nickname like
 				CONCAT('%',#{searchContent},'%')
 			</when>
 			<when test="searchType=='cus_hobbies'">
-				where cus_hobbies like
+				where board_customer.cus_hobbies like
 				CONCAT('%',#{searchContent},'%')
 			</when>
-		</choose>
+		</choose> 
 	</select>
 	<insert id="friendRequest" parameterType="Map">
 		insert into

@@ -7,13 +7,10 @@ import moonkyung.park.board.vo.Customer;
 
 public interface FriendDAO {
 
-	// 초반 정보 등록
-	public int addInformation(Customer customer) throws Exception;
-
 	// 친구 찾기
 	public ArrayList<Customer> findFriends(Map<String, String> search) throws Exception;
-	
-	//친구 요청의 개수
+
+	// 친구 요청의 개수
 	public int numofFriendRequest(String cus_id) throws Exception;
 
 	// 친구인지 여부 확인(혹은 이미 신청한 상태인지)

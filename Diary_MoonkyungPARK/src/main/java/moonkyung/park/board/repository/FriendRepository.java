@@ -20,18 +20,6 @@ public class FriendRepository {
 
 	FriendDAO fdao;
 
-	public int addInformation(Customer customer) {
-		fdao = sqlSession.getMapper(FriendDAO.class);
-		int result = 0;
-		try {
-			result = fdao.addInformation(customer);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
-	}
-
 	public ArrayList<Customer> findFriends(String searchType, String searchContent) {
 		Map<String, String> search = new HashMap();
 		search.put("searchType", searchType);

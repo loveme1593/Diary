@@ -12,9 +12,6 @@ create table board_customer(
  //친구테이블
  create table board_friend(
  cus_id varchar(50),
- cus_gender varchar(6),
- cus_nickname varchar(50),
- cus_hobbies varchar(5000),
  friend_id varchar(50),
  cus_status varchar(30),
  foreign key(cus_id) references board_customer(cus_id)

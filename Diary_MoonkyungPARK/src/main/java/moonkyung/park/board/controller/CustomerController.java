@@ -71,8 +71,7 @@ public class CustomerController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String join(Model model, Customer customer) {
 		int result = cRepository.insertCustomer(customer);
-		int fResult = fRepository.addInformation(customer);
-		logger.info("회원 가입하기 결과: " + customer + " ," + result + " , " + fResult);
+		logger.info("회원 가입하기 결과: " + customer + " ," + result);
 		return "home";
 	}
 
