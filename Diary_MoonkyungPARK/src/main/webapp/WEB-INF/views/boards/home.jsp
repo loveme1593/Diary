@@ -42,7 +42,7 @@
 }
 </style>
 <body>
-<!-- Navigation -->
+	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
 		id="mainNav">
 		<div class="container">
@@ -68,16 +68,17 @@
 							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
 						</li> -->
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
-							data-toggle="dropdown" href="#">${loginid} <span class="caret"></span></a>
+							data-toggle="dropdown" href="#">${loginid} <span
+								class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class="nav-item" style="padding-right:.5rem; padding-left:.5rem;">
-							Logged-in as <br>
-							<strong class="css-truncate-target">${loginid }</strong>
-							</li>
-							 <li class="dropdown-divider"></li>
+								<li class="nav-item"
+									style="padding-right: .5rem; padding-left: .5rem;">
+									Logged-in as <br> <strong class="css-truncate-target">${loginid }</strong>
+								</li>
+								<li class="dropdown-divider"></li>
 								<li class="nav-item"><a class="nav-link"
-							href="${pageContext.request.contextPath}/customer/logout">Logout</a>
-						</li>
+									href="${pageContext.request.contextPath}/customer/logout">Logout</a>
+								</li>
 							</ul></li>
 						<li class="nav-item dropdown"><a class="dropdown-toggle"
 							data-toggle="dropdown" href="#">Friends<span class="caret"></span></a>
@@ -130,7 +131,7 @@
 		<div class="row">
 			<div class="col-lg-8 col-md-10 mx-auto">
 				<div class="post-preview">
-					<h2>${friend_id }'sdiary</h2>
+					<h2>${friend_id }'s&nbspdiary</h2>
 					<hr>
 					<table class="table" cellpadding="10">
 						<tr>
@@ -145,7 +146,8 @@
 								<tr>
 									<td><a
 										href="${pageContext.request.contextPath}/boards/get?board_num=${item.board_num}&page=${page}&friend_id=${friend_id}">${item.board_title }
-											(${item.board_replies }) </a> <c:if test="${item.board_see=='all' }">
+											(${item.board_replies }) </a> <c:if
+											test="${item.board_see=='all' }">
 											<span class="badge badge-info">All</span>
 										</c:if> <c:if test="${item.board_see=='friend' }">
 											<span class="badge badge-light">Friend</span>
