@@ -273,14 +273,16 @@ public class BoardController {
 			board_uploadfileid = originalBoard.getBoard_uploadfileid();
 		}
 		if (upload.getOriginalFilename() != null) {
-			if (!board_fileid.equals("")) {
-				board_fileid = board.getBoard_uploadfileid();
-				FileService.deleteFile(board_fileid);
+			if (originalBoard.getBoard_uploadfileid() != null) {
+				board_uploadfileid = originalBoard.getBoard_uploadfileid();
+				FileService.deleteFile(board_uploadfileid);
 			}
 			board_uploadfileid = FileService.saveFile(upload, upload.getOriginalFilename());
 		}
-		board.setBoard_fileid(board_fileid);
-		board.setBoard_uploadfileid(board_uploadfileid);
+		if (originalBoard.getBoard_fileid() != null && upload.getOriginalFilename() != null) {
+			board.setBoard_fileid(board_fileid);
+			board.setBoard_uploadfileid(board_uploadfileid);
+		}
 		int result = bRepository.updateBoard(board);
 		logger.info("글 수정 결과: " + board.toString());
 		ArrayList<Board> boards = bRepository.getBoards(friend_id);

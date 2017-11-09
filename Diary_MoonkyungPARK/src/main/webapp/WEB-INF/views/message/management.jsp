@@ -127,10 +127,10 @@
 
 				<div class="post-preview">
 					<c:if test="${category=='read' }">
-						<h2>${loginid }'sMessage</h2>
+						<h2>${loginid }'s&nbspMessage</h2>
 					</c:if>
 					<c:if test="${category=='sent' }">
-						<h2>Messages ${loginid } sent</h2>
+						<h2>Messages&nbsp${loginid }&nbspsent</h2>
 					</c:if>
 
 					<hr>
