@@ -238,7 +238,7 @@ public class BoardController {
 		Board board = bRepository.getBoard(board_num);
 		boolean fileDeleteResult = false;
 		if (board.getBoard_uploadfileid() != null) {
-			fileDeleteResult = FileService.deleteFile(board.getBoard_uploadfileid());
+			fileDeleteResult = FileService.deleteFile(Configuration.PHOTOPATH + "/" + board.getBoard_uploadfileid());
 		}
 		int result = bRepository.deleteBoard(board_num);
 		logger.info("글 삭제: " + result + " , " + fileDeleteResult);
