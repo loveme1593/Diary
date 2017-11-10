@@ -277,9 +277,10 @@ public class BoardController {
 				board_uploadfileid = originalBoard.getBoard_uploadfileid();
 				FileService.deleteFile(board_uploadfileid);
 			}
-			board_uploadfileid = FileService.saveFile(upload, upload.getOriginalFilename());
+			board_uploadfileid = FileService.saveFile(upload, Configuration.PHOTOPATH);
+			System.out.println("after adjustment: " + board_uploadfileid);
 		}
-		if (originalBoard.getBoard_fileid() != null && upload.getOriginalFilename() != null) {
+		if (originalBoard.getBoard_fileid() != null || upload.getOriginalFilename() != null) {
 			board.setBoard_fileid(board_fileid);
 			board.setBoard_uploadfileid(board_uploadfileid);
 		}
